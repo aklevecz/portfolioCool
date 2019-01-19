@@ -1,0 +1,64 @@
+    <style>
+    #title {
+        position: absolute;
+        left: -100px;
+        top: -68px;
+        width: 49%;
+    }
+    </style>
+<body>
+    <div id="title"></div>
+    <div id="container">
+    </div>
+    <script src="8.js"></script>
+    <script src="title.js"></script>
+    <script>
+       var container = document.getElementById("container");
+       container.innerHTML = svgFile;
+       var title = document.getElementById("title");
+       title.innerHTML = titleSVG;
+
+       document.addEventListener("DOMContentLoaded", main);
+        
+       var svg, paths;
+       function main(){
+           svg = document.getElementsByTagName('svg')[1];
+           paths = svg.querySelectorAll('path');
+           for (var i = 0 ; i < paths.length ; i++ ) {
+               paths[i].style.stroke = 'white';
+           }
+
+       }
+       
+      requestAnimationFrame(render);
+       function render(){
+            var time = Date.now() * 0.0005;
+            for (var i = 0 ; i < paths.length ; i++ ) {
+                var t = 5*Math.sin(time) + 5
+                if ( t >= 1 && i % 2 ){
+                    paths[i].style.strokeWidth = t;
+
+                }
+                if ( t <= 1 && i % 2 ){
+                    paths[i].style.strokeWidth = t;
+                }
+
+                if ( t >= 1 && i % 3 ){
+                    paths[i].style.strokeWidth = t;
+
+                }
+                if ( t <= 1 && i % 3 ){
+                    paths[i].style.strokeWidth = t;
+                }
+
+                if (t > 1.999 && i % 3) {
+                    paths[i].style.stroke = "red"
+                } else {
+                    paths[i].style.stroke = "white";
+                }
+           }
+           requestAnimationFrame(render);
+       }
+    </script>
+
+</body>
